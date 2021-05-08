@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/poster"
+        android:layout_width="198dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/p185" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -24,45 +24,47 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:text=" DC Showcase Original Shorts Collection"
+        tools:text=" DC Showcase Original Shorts Collection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/poster" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2010"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        android:layout_marginTop="8dp"
+        tools:text="2010"
+        app:layout_constraintEnd_toStartOf="@+id/rating"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="330dp" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="8/10"
-        android:drawableStart="@drawable/ic_star"
+        android:layout_marginTop="7dp"
         android:drawablePadding="10dp"
+        tools:text="8/10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        tools:layout_editor_absoluteY="329dp"
-        android:drawableLeft="@drawable/ic_star" />
+        app:layout_constraintStart_toEndOf="@+id/year"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:drawableStartCompat="@drawable/ic_star"
+        app:drawableLeftCompat="@drawable/ic_star" />
 
     <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
+        android:id="@+id/description"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:text="An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts."
+        tools:text="An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/year" />
 </androidx.constraintlayout.widget.ConstraintLayout>
