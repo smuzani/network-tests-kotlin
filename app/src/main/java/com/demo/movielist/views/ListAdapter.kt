@@ -18,15 +18,21 @@ class ListAdapter :
 
     private var movies: MutableList<Movie> = ArrayList()
 
+    /**
+     * Put the ViewHolder inner for easy reading
+     */
     inner class ListHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ivPoster: ImageView = itemView.findViewById(R.id.poster)
         private val tvTitle: TextView = itemView.findViewById(R.id.title)
         private val tvYear: TextView = itemView.findViewById(R.id.year)
         private val tvDescription: TextView = itemView.findViewById(R.id.description)
 
+        /**
+         * Binds data to UI
+         */
         fun bind(data: Movie) {
             val ctx = itemView.context
-            if (data.poster_path.isNotBlank()) {
+            if (!data.poster_path.isNullOrBlank()) {
                 val path = "https://image.tmdb.org/t/p/w92${data.poster_path}"
                 Glide.with(ctx)
                     .load(path)
@@ -37,6 +43,7 @@ class ListAdapter :
             tvYear.text = data.release_date
             tvDescription.text = data.overview
             itemView.setOnClickListener {
+                // Convert the data class into a string and passes that string instead of doing some weird Parcelable thing
                 val dataPassed = Gson().toJson(data)
                 val intent = Intent(ctx, MovieDetailsActivity::class.java)
                 intent.putExtra(MovieDetailsActivity.DATA, dataPassed)

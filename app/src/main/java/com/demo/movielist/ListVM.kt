@@ -18,35 +18,55 @@ class ListVM: ViewModel() {
     val movies: LiveData<List<Movie>>
         get() = _movies
 
-    private val _test = MutableLiveData<String>()
-    val test: LiveData<String>
-        get() = _test
+    // track the page here
+    // Note: pagination is a bit hacky but suits our purposes.
+    // For production, consider https://developer.android.com/topic/libraries/architecture/paging/v3-overview
+    private var page = 1
+    private var lastPage = 1
 
+    // Handles coroutines (async) logic
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-    private var page = 1
 
+    /**
+     * Cancels all jobs if app is destroyed
+     */
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
 
+    init {
+        _movies.value = mutableListOf() // initializes it so it can append
+    }
+
+    /**
+     * Searches for the movies
+     */
     fun getMovies(search: String) {
+        // don't go past the last page
+        if (page > lastPage) return
+
         Timber.v("getting movie $search ($page)")
         coroutineScope.launch {
             try {
                 val result = Calls().retrofitSearch
                     .find(search, page)
-                _movies.value = result.results
                 page++
+                _movies.value = _movies.value?.plus(result.results)
+                lastPage = result.total_pages
             } catch (e: Exception) {
                 Timber.v("Error: %s", e.message)
             }
         }
     }
 
-    fun refreshMovies() {
+    /**
+     * Refreshes page data
+     */
+    fun refreshMovies(search: String) {
         _movies.value = mutableListOf()
         page = 1
+//        getMovies(search)
     }
 }

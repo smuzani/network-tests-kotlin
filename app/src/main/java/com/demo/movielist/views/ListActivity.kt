@@ -1,30 +1,49 @@
 package com.demo.movielist.views
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.demo.movielist.ListVM
 import com.demo.movielist.R
-import com.demo.movielist.model.Movie
+import com.demo.movielist.utils.InfiniteScrollListener
 import timber.log.Timber
 
 class ListActivity : AppCompatActivity() {
-    lateinit var rv: RecyclerView
+    private lateinit var rv: RecyclerView
+    private lateinit var swipeRefresh: SwipeRefreshLayout
     private val viewModel: ListVM by viewModels()
     private val pha = ListAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        rv = findViewById(R.id.rv)
+
         initObservers()
         initLayout()
-        viewModel.getMovies("superman")
+        viewModel.getMovies(QUERY)
     }
 
+    /**
+     * Initializes the observers for responses from viewModel
+     */
+    private fun initObservers() {
+        viewModel.movies.observe(this, { result ->
+            Timber.v("results: $result")
+            swipeRefresh.isRefreshing = false // clears refresh UI, if any
+            pha.set(result)
+        })
+    }
+
+    /**
+     * Initializes the UI
+     */
     private fun initLayout() {
+        rv = findViewById(R.id.rv)
+        swipeRefresh = findViewById(R.id.swiperefresh)
+
         val groupLayoutManager = LinearLayoutManager(this)
         val orientation = LinearLayoutManager.VERTICAL
         val dividerItemDecoration = DividerItemDecoration(this, orientation)
@@ -33,20 +52,20 @@ class ListActivity : AppCompatActivity() {
             adapter = pha
             itemAnimator = null
             addItemDecoration(dividerItemDecoration)
+            addOnScrollListener(object : InfiniteScrollListener(groupLayoutManager) {
+                override fun onLoadMore(currentPage: Int) {
+                    Timber.v("loadMore: $currentPage")
+                    viewModel.getMovies(QUERY)
+                }
+            })
         }
-//        val dummy = mutableListOf<Movie>()
-//        dummy.add(Movie(640810, "DC Showcase Original Shorts Collection", "An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts.", "/pYSkfX3ISUUpkNHbswHC8osWH4P.jpg", 	8f, "2010-11-09"))
-//        dummy.add(Movie(640810, "DC Showcase Original Shorts Collection", "An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts.", "/pYSkfX3ISUUpkNHbswHC8osWH4P.jpg", 	8f, "2010-11-09"))
-//        dummy.add(Movie(640810, "DC Showcase Original Shorts Collection", "An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts.", "/pYSkfX3ISUUpkNHbswHC8osWH4P.jpg", 	8f, "2010-11-09"))
 
+        swipeRefresh.setOnRefreshListener {
+            viewModel.refreshMovies(QUERY)
+        }
     }
 
-    private fun initObservers() {
-        viewModel.movies.observe(this, { result ->
-            Timber.v("results: $result")
-            pha.set(result)
-        })
+    companion object {
+        const val QUERY = "superman"
     }
-
-
 }

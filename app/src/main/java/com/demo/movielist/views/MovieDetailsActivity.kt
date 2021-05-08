@@ -26,7 +26,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         val tvDescription: TextView = findViewById(R.id.description)
         val tvRating: TextView = findViewById(R.id.rating)
 
-        if (movie.poster_path.isNotBlank()) {
+        if (!movie.poster_path.isNullOrBlank()) {
             val path = "https://image.tmdb.org/t/p/w185${movie.poster_path}"
             Glide.with(this)
                 .load(path)
