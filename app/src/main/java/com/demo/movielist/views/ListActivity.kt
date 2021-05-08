@@ -53,15 +53,14 @@ class ListActivity : AppCompatActivity() {
             itemAnimator = null
             addItemDecoration(dividerItemDecoration)
             addOnScrollListener(object : InfiniteScrollListener(groupLayoutManager) {
-                override fun onLoadMore(currentPage: Int) {
-                    Timber.v("loadMore: $currentPage")
+                override fun onLoadMore(current_page: Int) {
                     viewModel.getMovies(QUERY)
                 }
             })
         }
 
         swipeRefresh.setOnRefreshListener {
-            viewModel.refreshMovies(QUERY)
+            viewModel.refreshMovies()
         }
     }
 

@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.demo.movielist.model.Movie
 import com.demo.movielist.network.Calls
-import com.demo.movielist.network.NConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class ListVM: ViewModel() {
+class ListVM : ViewModel() {
 
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>>
@@ -53,7 +52,7 @@ class ListVM: ViewModel() {
                 val result = Calls().retrofitSearch
                     .find(search, page)
                 page++
-                _movies.value = _movies.value?.plus(result.results)
+                addMoreMovies(result.results)
                 lastPage = result.total_pages
             } catch (e: Exception) {
                 Timber.v("Error: %s", e.message)
@@ -61,12 +60,15 @@ class ListVM: ViewModel() {
         }
     }
 
+    private fun addMoreMovies(newMovies: List<Movie>) {
+        _movies.value = _movies.value?.plus(newMovies)
+    }
+
     /**
      * Refreshes page data
      */
-    fun refreshMovies(search: String) {
+    fun refreshMovies() {
         _movies.value = mutableListOf()
         page = 1
-//        getMovies(search)
     }
 }
