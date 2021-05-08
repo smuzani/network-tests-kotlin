@@ -8,23 +8,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.movielist.ListVM
 import com.demo.movielist.R
-import com.demo.movielist.models.Movie
+import com.demo.movielist.model.Movie
 import timber.log.Timber
 
 class ListActivity : AppCompatActivity() {
     lateinit var rv: RecyclerView
     private val viewModel: ListVM by viewModels()
+    private val pha = ListAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         rv = findViewById(R.id.rv)
         initObservers()
         initLayout()
+        viewModel.getMovies("superman")
     }
 
     private fun initLayout() {
         val groupLayoutManager = LinearLayoutManager(this)
-        val pha = ListAdapter()
         val orientation = LinearLayoutManager.VERTICAL
         val dividerItemDecoration = DividerItemDecoration(this, orientation)
         rv.apply {
@@ -33,15 +34,18 @@ class ListActivity : AppCompatActivity() {
             itemAnimator = null
             addItemDecoration(dividerItemDecoration)
         }
-        val dummy = mutableListOf<Movie>()
-        dummy.add(Movie(640810, "DC Showcase Original Shorts Collection", "An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts.", "/pYSkfX3ISUUpkNHbswHC8osWH4P.jpg", 	8f, "2010-11-09"))
-        dummy.add(Movie(640810, "DC Showcase Original Shorts Collection", "An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts.", "/pYSkfX3ISUUpkNHbswHC8osWH4P.jpg", 	8f, "2010-11-09"))
-        dummy.add(Movie(640810, "DC Showcase Original Shorts Collection", "An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts.", "/pYSkfX3ISUUpkNHbswHC8osWH4P.jpg", 	8f, "2010-11-09"))
-        pha.addAll(dummy)
+//        val dummy = mutableListOf<Movie>()
+//        dummy.add(Movie(640810, "DC Showcase Original Shorts Collection", "An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts.", "/pYSkfX3ISUUpkNHbswHC8osWH4P.jpg", 	8f, "2010-11-09"))
+//        dummy.add(Movie(640810, "DC Showcase Original Shorts Collection", "An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts.", "/pYSkfX3ISUUpkNHbswHC8osWH4P.jpg", 	8f, "2010-11-09"))
+//        dummy.add(Movie(640810, "DC Showcase Original Shorts Collection", "An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts.", "/pYSkfX3ISUUpkNHbswHC8osWH4P.jpg", 	8f, "2010-11-09"))
+
     }
 
     private fun initObservers() {
-
+        viewModel.movies.observe(this, { result ->
+            Timber.v("results: $result")
+            pha.set(result)
+        })
     }
 
 

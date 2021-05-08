@@ -1,6 +1,5 @@
 package com.demo.movielist.views
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -8,7 +7,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.demo.movielist.R
-import com.demo.movielist.models.Movie
+import com.demo.movielist.model.Movie
 import com.google.gson.Gson
 
 class MovieDetailsActivity : AppCompatActivity() {

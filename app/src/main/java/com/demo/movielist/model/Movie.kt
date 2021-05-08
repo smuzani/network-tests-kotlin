@@ -1,4 +1,4 @@
-package com.demo.movielist.models
+package com.demo.movielist.model
 
 data class Movie(
 //    val backdrop_path: String,
