@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/poster"
         android:layout_width="92dp"
-        android:layout_height="wrap_content"
+        android:layout_height="138dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:adjustViewBounds="true"
-        tools:srcCompat="@drawable/p92"
+        android:src="@drawable/ic_placeholder_poster"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -26,6 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         tools:text="DC Showcase Original Shorts Collection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,6 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         tools:text="2010"
+        android:maxLines="1"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/poster"
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -47,6 +51,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:maxLines="3"
+        android:ellipsize="end"
         tools:text="An anthology of DC Showcase stories consisting of a new Superman/Shazam feature and extended versions of older shorts."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/poster"

@@ -38,6 +38,10 @@ class ListAdapter :
                     .load(path)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(ivPoster)
+            } else {
+                Glide.with(ctx)
+                    .load(R.drawable.ic_placeholder_poster)
+                    .into(ivPoster)
             }
             tvTitle.text = data.title
             tvYear.text = data.release_date

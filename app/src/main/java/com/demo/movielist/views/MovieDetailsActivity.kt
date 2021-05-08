@@ -36,8 +36,12 @@ class MovieDetailsActivity : AppCompatActivity() {
         tvTitle.text = movie.title
         tvYear.text = movie.release_date
         tvDescription.text = movie.overview
-        val ratingText = "${movie.vote_average}/10"
-        tvRating.text = ratingText
+        if (movie.vote_average != null && movie.vote_average > 0) {
+            val ratingText = "${movie.vote_average}/10"
+            tvRating.text = ratingText
+        } else {
+            tvRating.text = "N/A"
+        }
     }
 
     companion object {
