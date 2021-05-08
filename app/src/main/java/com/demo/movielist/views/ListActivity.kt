@@ -2,14 +2,18 @@ package com.demo.movielist.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.demo.movielist.ListVM
 import com.demo.movielist.R
 import com.demo.movielist.models.Movie
+import timber.log.Timber
 
 class ListActivity : AppCompatActivity() {
     lateinit var rv: RecyclerView
+    private val viewModel: ListVM by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
