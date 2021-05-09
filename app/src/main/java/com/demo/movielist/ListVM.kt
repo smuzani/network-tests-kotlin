@@ -1,5 +1,6 @@
 package com.demo.movielist
 
+import androidx.annotation.RestrictTo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import retrofit2.awaitResponse
 import timber.log.Timber
 
 class ListVM : ViewModel() {
@@ -24,13 +26,14 @@ class ListVM : ViewModel() {
     private var lastPage = 1
 
     // Handles coroutines (async) logic
-    private var viewModelJob = Job()
+    var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     /**
      * Cancels all jobs if app is destroyed
      */
-    override fun onCleared() {
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    public override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
@@ -50,7 +53,7 @@ class ListVM : ViewModel() {
         coroutineScope.launch {
             try {
                 val result = Calls().retrofitSearch
-                    .find(search, page)
+                    .search(search, page).awaitResponse().body()!!
                 page++
                 addMoreMovies(result.results)
                 lastPage = result.total_pages
