@@ -1,0 +1,31 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+        <item name="colorAccent">#604800</item>
+        <item name="android:statusBarColor">#032a49</item>
+        <item name="colorOnBackground">@color/black</item>
+        <item name="colorSurface">#06457a</item>
+        <item name="colorPrimary">#06457a</item>
+        <item name="colorOnSurface">@color/white</item>
+    </style>
+
+    <style name="TextLarge">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/blackLarge</item>
+    </style>
+
+    <style name="TextHeader" parent="TextLarge">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextParagraph">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/blackSmall</item>
+    </style>
+
+    <style name="TextCaptions">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+</resources>

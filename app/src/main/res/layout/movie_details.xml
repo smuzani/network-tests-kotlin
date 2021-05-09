@@ -18,15 +18,13 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        style="@style/TextHeader"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:ellipsize="end"
-        android:maxLines="1"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/poster"
@@ -34,6 +32,7 @@
 
     <TextView
         android:id="@+id/year"
+        style="@style/TextParagraph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -46,6 +45,7 @@
 
     <TextView
         android:id="@+id/rating"
+        style="@style/TextParagraph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -61,6 +61,7 @@
 
     <TextView
         android:id="@+id/description"
+        style="@style/TextParagraph"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"

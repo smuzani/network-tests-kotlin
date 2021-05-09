@@ -9,7 +9,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import okhttp3.mockwebserver.RecordedRequest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -72,7 +71,7 @@ class ListVMUnitTests {
     }
 
     @Test
-    fun `onCleared should clean up jobs`(){
+    fun `onCleared should clean up jobs`() {
         viewModel.onCleared()
         Assert.assertEquals(viewModel.viewModelJob.isCancelled, true)
     }
@@ -81,7 +80,8 @@ class ListVMUnitTests {
 class ListVMMockWebServerTests {
     @get:Rule
     var server: MockWebServer = MockWebServer()
-    private val testJson = "{\"page\": 1, \"results\": [{\"adult\": false, \"backdrop_path\": \"/2l5UHZBcp9cx1PwKLdisJ0gV9jB.jpg\", \"genre_ids\": [16, 35, 14, 12 ], \"id\": 808, \"original_language\": \"en\", \"original_title\": \"Shrek\", \"overview\": \"It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.\", \"popularity\": 144.199, \"poster_path\": \"/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg\", \"release_date\": \"2001-05-18\", \"title\": \"Shrek\", \"video\": false, \"vote_average\": 7.7, \"vote_count\": 12323 } ], \"total_pages\": 2, \"total_results\": 25 }"
+    private val testJson =
+        "{\"page\": 1, \"results\": [{\"adult\": false, \"backdrop_path\": \"/2l5UHZBcp9cx1PwKLdisJ0gV9jB.jpg\", \"genre_ids\": [16, 35, 14, 12 ], \"id\": 808, \"original_language\": \"en\", \"original_title\": \"Shrek\", \"overview\": \"It ain't easy bein' green -- especially if you're a likable (albeit smelly) ogre named Shrek. On a mission to retrieve a gorgeous princess from the clutches of a fire-breathing dragon, Shrek teams up with an unlikely compatriot -- a wisecracking donkey.\", \"popularity\": 144.199, \"poster_path\": \"/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg\", \"release_date\": \"2001-05-18\", \"title\": \"Shrek\", \"video\": false, \"vote_average\": 7.7, \"vote_count\": 12323 } ], \"total_pages\": 2, \"total_results\": 25 }"
 
     private val client = OkHttpClient.Builder().build()
     private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -101,10 +101,12 @@ class ListVMMockWebServerTests {
         server.enqueue(
             MockResponse()
                 .setBody(testJson)
-                .setResponseCode(200))
+                .setResponseCode(200)
+        )
         val testObserver = movieSearchService.search("superman", 1, "abc")
         Assert.assertEquals(testObserver, testJson)
     }
+
     fun `getMovies done a second time will get second page`() {}
     fun `getMovies pages done multiple times should not show duplicate pages`() {}
     fun `getMovies pages should not exceed page limit`() {}
