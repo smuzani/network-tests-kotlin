@@ -20,7 +20,7 @@ class ListVM : ViewModel() {
     // track the page here
     // Note: pagination is a bit hacky but suits our purposes.
     // For production, consider https://developer.android.com/topic/libraries/architecture/paging/v3-overview
-    private var page = 1
+    var page = 1
     private var lastPage = 1
 
     // Handles coroutines (async) logic
@@ -60,7 +60,7 @@ class ListVM : ViewModel() {
         }
     }
 
-    private fun addMoreMovies(newMovies: List<Movie>) {
+    fun addMoreMovies(newMovies: List<Movie>) {
         _movies.value = _movies.value?.plus(newMovies)
     }
 
